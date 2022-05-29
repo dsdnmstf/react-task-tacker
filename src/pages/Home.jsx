@@ -5,10 +5,16 @@ import AddTaskForm from "../components/AddTaskForm";
 import data from "../helper/starterData";
 const Home = () => {
   const [tasks, setTasks] = useState(data);
-  // console.log(tasks);
+
+  const addTask = (newTask) => {
+    const id = new Date().getTime();
+    const addNewTask = { id, ...newTask };
+    console.log(addNewTask);
+    setTasks([...tasks, addNewTask]);
+  };
   return (
     <div>
-      <Header />
+      <Header addTask={addTask} />
       <ShowTasks />
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddTaskForm from "./AddTaskForm";
 
-const Header = () => {
+const Header = ({ addTask }) => {
   const [show, setShow] = useState(false);
   const [btnStyle, setBtnStyle] = useState({
     name: "Show Add Task Bar",
@@ -31,7 +31,7 @@ const Header = () => {
       >
         {show ? "Closs Add Task Bar" : "Show task Bar"}
       </button> */}
-      {show && <AddTaskForm />}
+      {show && <AddTaskForm addTask={addTask} />}
     </div>
   );
 };
