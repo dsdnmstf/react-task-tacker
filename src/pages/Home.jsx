@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import ShowTasks from "../components/ShowTasks";
-import AddTaskForm from "../components/AddTaskForm";
 import data from "../helper/starterData";
-const Home = () => {
-  const [tasks, setTasks] = useState(data);
 
-  const addTask = (newTask) => {
-    const id = new Date().getTime();
-    const addNewTask = { id, ...newTask };
-    console.log(addNewTask);
-    setTasks([...tasks, addNewTask]);
-  };
+const Home = () => {
+  //! Get tasks data from localStorage if they exist otherwise assing empty array to the tasks state
+  const [tasks, setTasks] = useState(() => {
+    const saved = JSON.parse(localStorage.getItem("tasks"));
+    return saved || [];
+  });
+
+  //! When tasks is updated, Refresh tasks in the localStorage
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
   return (
     <div>
-      <Header addTask={addTask} />
-      <ShowTasks />
+      <Header tasks={tasks} setTasks={setTasks} />
+      {tasks.length > 0 ? (
+        <ShowTasks tasks={tasks} setTasks={setTasks} />
+      ) : (
+        <p style={{ textAlign: "center" }}>NO TASK TO SHOW</p>
+      )}
     </div>
   );
 };
