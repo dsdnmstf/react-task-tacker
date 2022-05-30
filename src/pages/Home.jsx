@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import ShowTasks from "../components/ShowTasks";
-import data from "../helper/starterData";
 
 const Home = () => {
   //! Get tasks data from localStorage if they exist otherwise assing empty array to the tasks state
